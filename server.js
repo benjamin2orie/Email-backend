@@ -14,6 +14,7 @@ const Db = process.env.DB_URL
 const dbConnect = await mongoose.connect(Db).then(() =>{
     console.log('Db connected succesfully')
 })
+dbConnect()
 .catch((err) =>{
     console.log('Unable to connect to db', err)
 });
