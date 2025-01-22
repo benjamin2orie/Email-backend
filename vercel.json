@@ -3,15 +3,20 @@
     "version": 2,
     "builds": [
         { 
-            "src": "app.js",
+            "src": "Backend/server.js",
              "use": "@vercel/node" 
              }
             ],
     "routes": [
         { 
             "src": "/(.*)",
-             "dest": "app.js"
+             "dest": "Backend/server.js"
               }
-            ]
+            ],
+            "env": {
+                 "PORT": "9030", 
+                 "NODE_ENV": "production", 
+                 "DB_URL": "mongodb+srv://ogechukwubenj:vtbzJkRlDpcm6rnp@auth.6bhp8.mongodb.net/Auth?retryWrites=true&w=majority&appName=Auth" 
+                }
   }
   
