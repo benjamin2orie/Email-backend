@@ -10,7 +10,7 @@ const app = express();
 app.use(cookieParser());
 app.use(
     cors({
-        origin: "https://email-frontend-kappa.vercel.app",
+        origin: ["https://email-frontend-kappa.vercel.app"],
         credentials: true
     })
 );
