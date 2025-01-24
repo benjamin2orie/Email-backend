@@ -72,29 +72,57 @@ export const signup = catchAsync(async(req, res, next) =>{
 });
 
 // Creating a verify user function
-export const verifyAccount = catchAsync(async (req, res, next) =>{
-    const {otp} = req.body;
+// export const verifyAccount = catchAsync(async (req, res, next) =>{
+//     const {otp} = req.body;
 
-    if(!otp){
-        return next( new AppError("Otp is missing!", 400));
-    }
+//     if(!otp){
+//         return next( new AppError("Otp is missing!", 400));
+//     }
 
-    const user = req.user;
-    if(user.otp !== otp){
-        return next( new AppError("Invalid Otp code!", 400));
-    }
+//     const user = req.user;
+//     if(user.otp !== otp){
+//         return next( new AppError("Invalid Otp code!", 400));
+//     }
 
-    if(Date.now() > user.otpExpires){
-        return next( new AppError("Otp already expired. Please request for a new OTP", 400));
-    }
+//     if(Date.now() > user.otpExpires){
+//         return next( new AppError("Otp already expired. Please request for a new OTP", 400));
+//     }
 
-    user. isVerified = true;
-    user.otp = undefined;
-    user.otpExpires = undefined;
+//     user. isVerified = true;
+//     user.otp = undefined;
+//     user.otpExpires = undefined;
 
-    await user.save({validateBeforeSave: false});
-    createSendToken(user, 200, res, "Email has been verified");
+//     await user.save({validateBeforeSave: false});
+//     createSendToken(user, 200, res, "Email has been verified");
+// });
+
+
+export const verifyAccount = catchAsync(async (req, res, next) => {
+  const { otp } = req.body;
+
+  if (!otp) {
+    return next(new AppError("Otp is missing!", 400));
+  }
+
+  // Fetch the user based on some unique identifier, e.g., email or user ID
+  const user = await User.findOne({ otp }); // Adjust the query as needed
+
+  if (!user) {
+    return next(new AppError("Invalid Otp code!", 400));
+  }
+
+  if (Date.now() > user.otpExpires) {
+    return next(new AppError("Otp already expired. Please request for a new OTP", 400));
+  }
+
+  user.isVerified = true;
+  user.otp = undefined;
+  user.otpExpires = undefined;
+
+  await user.save({ validateBeforeSave: false });
+  createSendToken(user, 200, res, "Email has been verified");
 });
+
 
 // Creating resendOtp function
 

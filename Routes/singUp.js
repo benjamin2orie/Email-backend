@@ -6,7 +6,7 @@ import isAuthenticated from '../Middlewares/isAuthenticated.js';
 const router = express.Router();
 
 router.post('/signup', signup);
-router.post('/verify', isAuthenticated, verifyAccount);
+router.post('/verify', verifyAccount);
 router.post('/resend-otp', isAuthenticated, resendOtp);
 router.post('/login', login);
 router.post('/logout', logout);
