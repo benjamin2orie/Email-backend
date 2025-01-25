@@ -64,7 +64,7 @@ export const signup = catchAsync(async(req, res, next) =>{
             subject: 'Otp for email verification',
             html: ` <h1> Your Otp is: ${otp}</h1>`
         });
-        createSendToken(newUser, 200, res, "Registration succesful");
+        createSendToken(newUser, 201, res, "Registration succesful");
     }catch(error){
         await User.findByIdAndDelete(newUser.id)
         return next(new AppError("There is an error sending the email. Please try again", 500));
@@ -130,7 +130,7 @@ export const resendOtp = catchAsync(async(req, res, next) =>{
     const {email} = req.user;
 
     if(!email){
-        return next( new AppError("Email is required to resend the OTP code", 400));
+        return next( new AppError("Email is required to resend the OTP code", 401));
     };
 
     const user = await User.findOne({email});
