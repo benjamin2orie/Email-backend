@@ -1,19 +1,21 @@
 
 
 
+
+
 {
   "version": 2,
   "name": "email-verification-backend",
   "builds": [
     {
-      "src": "app.js",
+      "src": "Backend/app.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/Backend/(.*)",
-      "dest": "app.js"
+      "src": "/api/(.*)",
+      "dest": "Backend/app.js"
     }
   ]
 }  
