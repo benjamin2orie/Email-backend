@@ -8,14 +8,14 @@
   "name": "email-verification-backend",
   "builds": [
     {
-      "src": "Backend/app.js",
+      "src": "Backend/server.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "Backend/app.js"
+      "dest": "Backend/server.js"
     }
   ]
 }  
