@@ -3,7 +3,6 @@
 
 {
   "version": 2,
-  "name": "email-backend",
   "builds": [
     {
       "src": "app.js",
@@ -12,7 +11,7 @@
   ],
   "routes": [
     {
-      "src": "/backend/(.*)",
+      "src": "/.backend/(.*)",
       "dest": "app.js"
     }
   ]
